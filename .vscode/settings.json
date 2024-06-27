@@ -1,0 +1,16 @@
+{
+    "files.associations": {
+        "rtc.h": "c",
+        "mxc_config.h": "c",
+        "main.h": "c",
+        "device.h": "c",
+        "spi.h": "c",
+        "max32665.h": "c",
+        "max20356.h": "c",
+        "i2c.h": "c",
+        "peripherals.h": "c",
+        "mrd106.h": "c",
+        "rtc_regs.h": "c",
+        "app_gui.h": "c"
+    }
+}

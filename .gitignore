@@ -50,6 +50,7 @@ Mkfile.old
 dkms.conf
 
 .settings/
+.vscode
 
 
 # Unignoring BTE build files

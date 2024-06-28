@@ -1,0 +1,2 @@
+This file is to tell what changes I have mad in this repo.
+I have added comments for MAX86178 files to get a better understanding of the code.

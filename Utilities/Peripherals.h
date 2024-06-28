@@ -67,14 +67,23 @@
 							wsfOsDispatcher();						\
 					}
 
+<<<<<<< HEAD
 #define UNUSED(x)	 	(void)(x)
+=======
+#define UNUSED(x)	 	(void)(x) // E1: This macro tells the compiler that the parameter or variable 'x' is intentionally unused for avoiding compiler warnings
+>>>>>>> e9f85f25ebc87b40694c2c8fb08950fa5be1e78a
 
 
 /*! \def enter_critical_section()
     \brief Disables interrupt request
 
     Details.
+<<<<<<< HEAD
 */
+=======
+*/ //E1: THis is a Doxygen command for Documentation 
+
+>>>>>>> e9f85f25ebc87b40694c2c8fb08950fa5be1e78a
 #define enter_critical_section()		/*__disable_irq()*/
 
 /*! \def exit_critical_section()
@@ -111,7 +120,12 @@
     Details.
 */
 #ifdef SHOW_DEBUG_MSGS
+<<<<<<< HEAD
 #define pr_debug(fmt, args...) 	printf("\r\n[" fmt, ##args);
+=======
+#define pr_debug(fmt, args...) 	printf("\r\n[" fmt, ##args);  
+// E1: print debug msg
+>>>>>>> e9f85f25ebc87b40694c2c8fb08950fa5be1e78a
 #else
 	#define pr_debug(fmt, args...) (void)(fmt)
 #endif

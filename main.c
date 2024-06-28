@@ -85,12 +85,25 @@
 /**************************************************************************************************
   Macros
 **************************************************************************************************/
+<<<<<<< HEAD
 #define HWREG(x) (*((volatile unsigned long *)(x)))
 /* Size of buffer for stdio functions */
 #define PRINTF_BUF_SIZE 128
 
 /**************************************************************************************************
   Local Variables
+=======
+#define HWREG(x) (*((volatile unsigned long *)(x))) // E1: This macro allows direct access to a hardware register at address x.
+// E1: (volatile unsigned long *): This is a type cast. It tells the compiler to treat x as a pointer to a volatile unsigned long.
+// E1: ANd then it is dereferencing it to access the value stored at the memory address 'x'.
+// E1: “volatile” variables can change from outside the program and that’s why compilers aren’t supposed to optimize their access. 
+
+/* Size of buffer for stdio functions */
+#define PRINTF_BUF_SIZE 128 // E1: Defines the size of buffer for printf fxns
+
+/**************************************************************************************************
+  Local Variables E1: These variables manage global states, configurations, and buffers for sensors, queues, and event handling.
+>>>>>>> e9f85f25ebc87b40694c2c8fb08950fa5be1e78a
 **************************************************************************************************/
 static volatile unsigned int g_app_evt = 0;
 
@@ -655,5 +668,9 @@ void HardFault_Handler(void)
 
 void app_main_evt_post(unsigned int evt)
 {
+<<<<<<< HEAD
 	g_app_evt |= evt;
+=======
+	g_app_evt |= evt; // takes Bitwise OR with the global event to effectively record the active events
+>>>>>>> e9f85f25ebc87b40694c2c8fb08950fa5be1e78a
 }

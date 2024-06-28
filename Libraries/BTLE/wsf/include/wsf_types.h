@@ -81,7 +81,11 @@ typedef unsigned long long uint64_t;
 /**@}*/
 
 /*! \brief Boolean data type */
+<<<<<<< HEAD
 typedef uint8_t bool_t;
+=======
+typedef uint8_t bool_t; // 
+>>>>>>> e9f85f25ebc87b40694c2c8fb08950fa5be1e78a
 
 /*! \} */    /* WSF_TYPES */
 

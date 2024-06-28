@@ -79,7 +79,13 @@ typedef enum {
 } i2c_autoflush_disable_t;
 
 // @brief I2C Transaction request.
+<<<<<<< HEAD
 typedef struct i2c_req i2c_req_t;
+=======
+typedef struct i2c_req i2c_req_t; 
+// type alias for struct i2c_req
+
+>>>>>>> e9f85f25ebc87b40694c2c8fb08950fa5be1e78a
 struct i2c_req {
 
     uint8_t addr;                  /**< @parblock I2C 7-bit Address left aligned, bit 7 to bit 1.

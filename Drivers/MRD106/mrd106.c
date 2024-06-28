@@ -35,7 +35,11 @@ static sensor_t* s_mrd106_getSensor(int sensorNo);
 
 static mrd_t mrd106 = {
     .init = s_mrd106_init,
+<<<<<<< HEAD
     .powerOn = s_mrd106_powerOn,
+=======
+    .powerOn = s_mrd106_powerOn,    
+>>>>>>> e9f85f25ebc87b40694c2c8fb08950fa5be1e78a
     .powerOff = s_mrd106_powerOff,
     .startMeasurement = s_mrd106_startMeasurement,
     .stopMeasurement = s_mrd106_stopMeasurement,

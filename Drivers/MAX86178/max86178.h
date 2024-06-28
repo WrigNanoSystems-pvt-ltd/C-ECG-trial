@@ -33,6 +33,11 @@
 *******************************************************************************
 */
 
+<<<<<<< HEAD
+=======
+// E1: For more details on Register Map refer to the Datasheet of MAX86178
+
+>>>>>>> e9f85f25ebc87b40694c2c8fb08950fa5be1e78a
 #ifndef _MAX86178_REG_MAP_H_
 #define _MAX86178_REG_MAP_H_
 
@@ -41,7 +46,11 @@ extern "C" {
 #endif
 
 #include "Peripherals.h"
+<<<<<<< HEAD
 #include "max86178_platform.h"
+=======
+#include "max86178_platform.h" // E1: Including the patform file
+>>>>>>> e9f85f25ebc87b40694c2c8fb08950fa5be1e78a
 #include "queue.h"
 
 /*	MAX86178 Registers	*/
@@ -51,6 +60,10 @@ extern "C" {
 #define MAX86178_FAILURE    -1
 
 #if defined USE_OLD_CHIP //----------------------------OLD CHIP  MAX86176--------------------------------------//
+<<<<<<< HEAD
+=======
+// E1: if defined Used to include or exclude certain sections of code based on the condition 
+>>>>>>> e9f85f25ebc87b40694c2c8fb08950fa5be1e78a
 
 /* Status registers */
 #define MAX86178_STATUS1_REG				0x00
@@ -1665,7 +1678,11 @@ struct max86178_dev {
 
 typedef struct max86178_dev max86178_dev_t;
 
+<<<<<<< HEAD
 typedef int (*max86178_fifo_read_cb)(void);
+=======
+typedef int (*max86178_fifo_read_cb)(void); //E1: alias for a function pointer
+>>>>>>> e9f85f25ebc87b40694c2c8fb08950fa5be1e78a
 
 int max86178_sensor_enable(struct max86178_dev *sd, int agc_enable, int enable);
 void *max86178_get_device_data(void);
@@ -1675,6 +1692,7 @@ int max86178_dump_regs(dev_comm_t *port, uint8_t *buf,
 int max86178_get_part_info(dev_comm_t *comm,
 		uint8_t *part_id, uint8_t *rev_id, uint8_t *num_pd);
 
+<<<<<<< HEAD
 int max86178_set_sample_rate(struct max86178_dev *sd, uint16_t rate);
 int max86178_get_sample_rate(struct max86178_dev *sd);
 int max86178_fifo_irq_handler(struct max86178_dev *sd);
@@ -1706,6 +1724,40 @@ int max86178_set_fifo_a_full(uint8_t level);
 
 void max86178_register_fifo_read_callback(max86178_fifo_read_cb func);
 void max86178_unregister_fifo_read_callback();
+=======
+int max86178_set_sample_rate(struct max86178_dev *sd, uint16_t rate); //E1: Sets the sampling rate of the MAX86178 device
+int max86178_get_sample_rate(struct max86178_dev *sd); // E1: Retrieves the current sampling rate of the MAX86178 device.
+int max86178_fifo_irq_handler(struct max86178_dev *sd); // E1: Handles the ISR for FIFO buffer of the device
+int max86178_irq_handler(void *arg); // E1: Generic IRQ handler for the device.
+int max86178_get_irq_state(void *data); // E1: retrieves the state of interrupts from the MAX86178 sensor.
+void max86178_irq_clr(); // E1: Clears the interrupt status
+void max86178_irq_clr_to_zero(); // E1: Clears the interrupt status and sets it to zero.
+void max86178_irq_reset_ref_cnt(); // E1: Resets the reference count for interrupts
+int max86178_run_dac_calibration(struct max86178_dev *sd, uint8_t ppg_cfg1); // E1: Runs a DAC (Digital-to-Analog Converter) calibration for the device.
+int max86178_get_meas_num(struct max86178_dev *sd); //E1: Retrieves the number of measurements taken by the device.
+
+// sensor on off reset
+int max86178_reset (struct max86178_dev *sd); // E1: Resets the MAX86178 device.
+int max86178_poweron (struct max86178_dev *sd); // E1: Powers on the MAX86178 device.
+int max86178_poweroff (struct max86178_dev *sd); // E1: powers off the MAX86178 device.
+
+int max86178_get_num_of_channel(uint8_t * p_num_ch); //E1: Retrieves the number of channels available on the MAX86178 device.
+int max86178_is_ppg_enabled(uint8_t * p_ppg_enabled); //E1: Checks if the PPG sensor is enabled.
+int max86178_is_ecg_enabled(uint8_t *p_ecg_enabled); //E1: Checks if the ECG (Electrocardiogram) sensor is enabled.
+int max86178_is_iq_enabled(uint8_t * p_iq_enabled); //E1: Checks if the IQ (impedance) sensor is enabled.
+int max86178_is_acc_enabled(uint8_t * p_acc_enabled);//E1: Checks if the accelerometer is enabled
+int max86178_is_ecg_faster_than_ppg(uint8_t *p_is_true);//E1: Checks if the ECG sampling rate is faster than the PPG sampling rate.
+int max86178_is_bioz_fater_than_ppg(uint8_t *p_is_true);//E1: Checks if the BioZ (Bioimpedance) sampling rate is faster than the PPG sampling rate.
+int max86178_get_num_photo_diodes(uint8_t *p_num_diode);//E1: Retrieves the number of photodiodes available on the MAX86178 device.
+int max86178_is_enabled(uint8_t * p_is_enabled);//E1: Checks if the MAX86178 device is enabled
+int max86178_set_frame_ready_int(uint8_t enable); //E1: Configures the frame ready interrupt
+int max86178_set_a_full_int(uint8_t enable); //E1: Configures the almost full interrupt for the FIFO.
+int max86178_set_fifo_a_full(uint8_t level); //E1: Sets the threshold level for the almost full FIFO interrupt.
+
+void max86178_register_fifo_read_callback(max86178_fifo_read_cb func); // E1: Registers a callback function to be called when FIFO data is ready to be read.
+void max86178_unregister_fifo_read_callback(); // E1: Unregisters the FIFO read callback function.
+
+>>>>>>> e9f85f25ebc87b40694c2c8fb08950fa5be1e78a
 
 typedef enum {
 	MAX86178_MEAS_CH1 = 0,
@@ -1726,22 +1778,41 @@ typedef enum {
 	MAX86178_LED_DRIVER_MAX
 } max86178_led_type;
 
+<<<<<<< HEAD
 int max86178_get_list_of_enabled_channels(uint8_t * p_channels);
 int max86178_set_leds_current(max86178_meas_ch_t ch, max86178_led_type led_type, uint8_t led_current);
 int max86178_get_leds_current(max86178_meas_ch_t ch, max86178_led_type led_type, uint8_t * led_current);
 int max86178_get_led_current_steps(max86178_meas_ch_t ch, float * curr_per_step);
 int max86178_is_ppg1_enabled(uint8_t * p_is_enabled);
 int max86178_is_ppg2_enabled(uint8_t * p_is_enabled);
+=======
+int max86178_get_list_of_enabled_channels(uint8_t * p_channels); // E1: Retrieves a list of enabled channels on the MAX86178 device.
+int max86178_set_leds_current(max86178_meas_ch_t ch, max86178_led_type led_type, uint8_t led_current); // E1: Sets the current for specified LEDs.
+int max86178_get_leds_current(max86178_meas_ch_t ch, max86178_led_type led_type, uint8_t * led_current); //E1: Retrieves the current setting for specified LEDs.
+int max86178_get_led_current_steps(max86178_meas_ch_t ch, float * curr_per_step); //E1: Gets the current steps for specified LEDs.
+
+int max86178_is_ppg1_enabled(uint8_t * p_is_enabled); //E1: Checks if PPG1 is enabled.
+int max86178_is_ppg2_enabled(uint8_t * p_is_enabled); //E1: Checks if PPG2 is enabled.
+>>>>>>> e9f85f25ebc87b40694c2c8fb08950fa5be1e78a
 
 int max86178_turn_led_on(max86178_leds_t led);
 int max86178_turn_led_off(max86178_leds_t led);
 int max86178_disable_all_ch();
+<<<<<<< HEAD
 int max86178_clear_fifo();
 int max86178_set_integration_time(uint8_t meas, uint8_t int_time);
 int max86178_set_average_sample(uint8_t meas, unsigned int avg_sample);
 int max86178_set_dac_offset(uint8_t meas, uint8_t pd_sel, uint8_t offset);
 
 int max86178_fill_header_data(uint8_t header[126]);
+=======
+int max86178_clear_fifo();// E1: Clears the FIFO Buffer
+int max86178_set_integration_time(uint8_t meas, uint8_t int_time); //E1: Sets the integration time for a specified measurement.
+int max86178_set_average_sample(uint8_t meas, unsigned int avg_sample); //E1: Sets the number of samples to average for a specified measurement.
+int max86178_set_dac_offset(uint8_t meas, uint8_t pd_sel, uint8_t offset); //E1: Sets the DAC offset for a specified measurement and photodiode.
+
+int max86178_fill_header_data(uint8_t header[126]); //E1: Fills the header data for the device.
+>>>>>>> e9f85f25ebc87b40694c2c8fb08950fa5be1e78a
 
 /************************************************************************************
  *                                                                                  *

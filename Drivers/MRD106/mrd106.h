@@ -10,6 +10,10 @@
 
 typedef struct mrd
 {
+<<<<<<< HEAD
+=======
+    //E1: Function pointers for various operations
+>>>>>>> e9f85f25ebc87b40694c2c8fb08950fa5be1e78a
     int (*init)();
     int (*powerOn)();
     int (*powerOff)();
@@ -43,9 +47,17 @@ typedef struct mrd
     int (*getStopCmd)();
 
 
+<<<<<<< HEAD
     sensor_t *sensors[SH_NUM_SENSORS];
     sensor_t* (*getSensor)(int sensorNo);
 
+=======
+    // E1: Array of pointers to sensor structures
+    sensor_t *sensors[SH_NUM_SENSORS];
+    sensor_t* (*getSensor)(int sensorNo);
+
+    //E1: Internal state variables
+>>>>>>> e9f85f25ebc87b40694c2c8fb08950fa5be1e78a
     int p_isInit;
     int p_batteryPercentage;
     int p_chargingStatus;
@@ -59,6 +71,10 @@ typedef struct mrd
     bool p_stopCmd;
 
 
+<<<<<<< HEAD
+=======
+    //E1: Event-related state variables
+>>>>>>> e9f85f25ebc87b40694c2c8fb08950fa5be1e78a
     int e_bleSentEvt;
   
 }mrd_t;

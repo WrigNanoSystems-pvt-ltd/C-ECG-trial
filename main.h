@@ -33,7 +33,11 @@
 *******************************************************************************
 */
 
+<<<<<<< HEAD
 #ifndef _MAIN_H_
+=======
+#ifndef _MAIN_H_ // E1: Acts as guards to prevent double inclusion which will raise an error
+>>>>>>> e9f85f25ebc87b40694c2c8fb08950fa5be1e78a
 #define _MAIN_H_
 
 
@@ -75,10 +79,17 @@
 
 #define EVT_LOC_FIND_STARTED            (1u << 20u)
 #define EVT_LOC_FIND_IN_PROGRESS        (1u << 21u)
+<<<<<<< HEAD
 #define EVT_LOC_FIND_STOPPED            (1u << 22u)
 
 /*SpO2 State Machine*/
 enum
+=======
+#define EVT_LOC_FIND_STOPPED            (1u << 22u) // E1: 1u shifted to the left by 22 positions, which is 4194304 (in binary, it's 0100 0000 0000 0000 0000 0000).
+
+/*SpO2 State Machine*/
+enum // E1: named integer constants starts from zero for state of spo2 state machine
+>>>>>>> e9f85f25ebc87b40694c2c8fb08950fa5be1e78a
 {
 	SPO2_SM_NOT_INITIALIZED,
 	SPO2_SM_ACTIVE,
@@ -86,9 +97,16 @@ enum
 	SPO2_SM_DISABLED,
 };
 
+<<<<<<< HEAD
 extern uint8_t spo2_meas_selected_pd;
 
 void app_main_evt_post(unsigned int evt);
 int spo2_state_machine(uint8_t restart);
+=======
+extern uint8_t spo2_meas_selected_pd; // E1: declared here but defined and memory allocation elsewhere
+
+void app_main_evt_post(unsigned int evt); //E1: function prototypes used for recording event information
+int spo2_state_machine(uint8_t restart); //  
+>>>>>>> e9f85f25ebc87b40694c2c8fb08950fa5be1e78a
 
 #endif /* _MAIN_H_ */

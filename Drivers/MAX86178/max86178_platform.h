@@ -33,7 +33,11 @@
 *******************************************************************************
 */
 
+<<<<<<< HEAD
 #ifndef _PLATFORM_MAX86178_H
+=======
+#ifndef _PLATFORM_MAX86178_H //if not defined
+>>>>>>> e9f85f25ebc87b40694c2c8fb08950fa5be1e78a
 #define _PLATFORM_MAX86178_H
 
 #include <stdint.h>

@@ -36,9 +36,15 @@
 #ifndef _MAX86176_REG_MAP_H_
 #define _MAX86176_REG_MAP_H_
 
+<<<<<<< HEAD
 #ifdef __cplusplus
 extern "C" {
 #endif
+=======
+#ifdef __cplusplus // E1: For ensuring compatibility while using C code within C++ programs
+extern "C" {  // E1: specifies that the enclosed code has C linkage, not C++ linkage preventing 'name mangling'  
+#endif // E1: __cplusplus is autmoatically defined by C++ compilers
+>>>>>>> e9f85f25ebc87b40694c2c8fb08950fa5be1e78a
 
 #include "Peripherals.h"
 #include "max86176_platform.h"
@@ -47,9 +53,16 @@ extern "C" {
 /*	MAX86176 Registers	*/
 
 /* Status registers */
+<<<<<<< HEAD
 #define MAX86176_STATUS1_REG				0x00
 
 #define MAX86176_PWR_RDY_MASK				(0x01)
+=======
+// E1: Register 1
+#define MAX86176_STATUS1_REG				0x00 // E1: Defines Address for status1 register
+
+#define MAX86176_PWR_RDY_MASK				(0x01) // E1: Bit mask for register 1
+>>>>>>> e9f85f25ebc87b40694c2c8fb08950fa5be1e78a
 #define MAX86176_THRESH1_HILO_MASK			(0x01 << 1)
 #define MAX86176_THRESH2_HILO_MASK			(0x01 << 2)
 #define MAX86176_EXP_OVF_MASK				(0x01 << 3)
@@ -58,12 +71,21 @@ extern "C" {
 #define MAX86176_FRAME_RDY_MASK				(0x01 << 6)
 #define MAX86176_A_FULL_MASK				(0x01 << 7)
 
+<<<<<<< HEAD
 #define MAX86176_STATUS2_REG				0x01
+=======
+// E1: Register 2
+#define MAX86176_STATUS2_REG				0x01 // E1: Different register like register 2
+>>>>>>> e9f85f25ebc87b40694c2c8fb08950fa5be1e78a
 
 #define MAX86176_INVALID_CFG_MASK			(0x01 << 2)
 #define MAX86176_VDD_OOR_MASK				(0x01 << 6)
 #define MAX86176_LED9_COMPB_MASK			(0x01 << 7)
 
+<<<<<<< HEAD
+=======
+// E1: Register 3
+>>>>>>> e9f85f25ebc87b40694c2c8fb08950fa5be1e78a
 #define MAX86176_STATUS3_REG				0x02
 
 #define MAX86176_LED1_COMPB_MASK			(0x01)
@@ -75,6 +97,10 @@ extern "C" {
 #define MAX86176_LED7_COMPB_MASK			(0x01 << 6)
 #define MAX86176_LED8_COMPB_MASK			(0x01 << 7)
 
+<<<<<<< HEAD
+=======
+// E1: Register 4,5,6
+>>>>>>> e9f85f25ebc87b40694c2c8fb08950fa5be1e78a
 #define MAX86176_STATUS4_REG				0x03
 #define MAX86176_STATUS5_REG				0x04
 #define MAX86176_STATUS6_REG				0x05
@@ -439,7 +465,11 @@ extern "C" {
 #define MAX86176_LED6_COMPB_EN_MASK			(0x01 << 5)
 #define MAX86176_TIMING_SYS_RESET_EN_MASK	(0x01 << 7)
 
+<<<<<<< HEAD
 /* EGC Configuration registers */
+=======
+/* EGC Configuration registers */  // E1: For ECG config
+>>>>>>> e9f85f25ebc87b40694c2c8fb08950fa5be1e78a
 #define MAX86176_EGC_CONFIG_1_REG			0x90
 #define MAX86176_EGC_CONFIG_2_REG			0x91
 #define MAX86176_EGC_CONFIG_3_REG			0x92
@@ -529,7 +559,11 @@ typedef enum {
 
 /* OS64's LEDS */
 typedef enum {
+<<<<<<< HEAD
 	MAX86176_LED_GREEN = 0u,
+=======
+	MAX86176_LED_GREEN = 0u, //E1: 0u stands for unsigned integer const with value 0
+>>>>>>> e9f85f25ebc87b40694c2c8fb08950fa5be1e78a
 	MAX86176_LED_RED,
 	MAX86176_LED_IR,
 

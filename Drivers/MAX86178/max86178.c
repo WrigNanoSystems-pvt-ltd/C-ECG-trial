@@ -53,7 +53,11 @@ char device_info[sizeof(struct max86178_dev)];
 
 queue_t queue_algo;
 
+<<<<<<< HEAD
 static max86178_fifo_read_cb fifo_read_cb;
+=======
+static max86178_fifo_read_cb fifo_read_cb; //E1: static variables are only initialized once and live till the end of program 
+>>>>>>> e9f85f25ebc87b40694c2c8fb08950fa5be1e78a
 extern sensor_t adxl367_accel;
 extern uint8_t gUseAcc;
 ///DEBUG------------------------------------
@@ -67,6 +71,7 @@ int32_t ppgTimeStamp = 0;
 static void register_gpio_irq_handler(void (*irq_handler)(void *), const gpio_cfg_t *gpio, void *cbdata)
 {
 	//platform_assert(gpio);
+<<<<<<< HEAD
 	mxm_assert(gpio);
 	pr_info("\n\rregister_gpio_irq_handler!\n\r");
 
@@ -82,13 +87,40 @@ static void register_gpio_irq_handler(void (*irq_handler)(void *), const gpio_cf
 //#endif
 	GPIO_IntEnable(gpio);
 	NVIC_EnableIRQ(MXC_GPIO_GET_IRQ(gpio->port));
+=======
+	mxm_assert(gpio); // E1: This line asserts that the gpio pointer is not null. It is likely used for error checking to ensure that the GPIO configuration pointer is valid
+	pr_info("\n\rregister_gpio_irq_handler!\n\r");
+
+	GPIO_Config(gpio); // E1: This line configures the GPIO pins based on the provided GPIO configuration.
+
+	// Register callback
+	GPIO_RegisterCallback(gpio, irq_handler, cbdata); // E1: registers the IRQ handler callback function to be called when the GPIO interrupt occurs. It associates the provided callback function (irq_handler) with the GPIO pin specified by gpio, and cbdata is passed as additional data to the callback function.
+
+	// Configure and enable interrupt
+// #if defined(MAX32660)
+	GPIO_IntConfig(gpio, GPIO_INT_EDGE, GPIO_INT_FALLING); // E1: configures the GPIO interrupt to trigger on the falling edge.
+//#else
+	//GPIO_IntConfig(gpio, GPIO_INT_FALLING_EDGE);
+//#endif
+	GPIO_IntEnable(gpio); //E1: enables the GPIO interrupt.
+	NVIC_EnableIRQ(MXC_GPIO_GET_IRQ(gpio->port)); // E1: enables the NVIC (Nested Vectored Interrupt Controller) for the GPIO interrupt, allowing the processor to respond to the GPIO interrupt when it occurs.
+>>>>>>> e9f85f25ebc87b40694c2c8fb08950fa5be1e78a
 }
 #endif
 
 static int update_bits(uint8_t reg, uint8_t mask, uint8_t val)
 {
+<<<<<<< HEAD
     int ret_val = MAX86178_SUCCESS;
     uint8_t reg_val;
+=======
+	// E1: update specific bits within a register in a device 
+	// E1: mask - A mask specifying which bits in the register will be updated
+	// E1: val - The new value to be written to the specified bits.
+
+    int ret_val = MAX86178_SUCCESS;
+    uint8_t reg_val; // E1: 8 bits of memory without a sign bit; Temporary holds the register value
+>>>>>>> e9f85f25ebc87b40694c2c8fb08950fa5be1e78a
 
     if (val > mask) {
         ret_val = MAX86178_FAILURE;
@@ -100,6 +132,7 @@ static int update_bits(uint8_t reg, uint8_t mask, uint8_t val)
             if (mask & 1 << i)
                 break;
 
+<<<<<<< HEAD
         val = val << i;
     }
 
@@ -111,32 +144,66 @@ static int update_bits(uint8_t reg, uint8_t mask, uint8_t val)
             tmp = reg_val & ~mask;
             tmp |= val & mask;
             ret_val = max86178_write_reg(0, reg, tmp);
+=======
+        val = val << i; // E1: Shifts val left by that position so that it aligns with the masked bits in the register.
+    }
+
+    if (ret_val == MAX86178_SUCCESS) {
+        ret_val = max86178_read_reg(0, &reg_val, 1);//(reg, &reg_val, 1); // E1: Read the register: Calls max86178_read_reg to read the current value of the register into reg_val
+        if (ret_val == MAX86178_SUCCESS) {
+            uint8_t tmp = 0;
+
+            tmp = reg_val & ~mask; // E1: Clears the bits specified by the mask in the original register value
+            tmp |= val & mask; //E1: Sets the masked bits to the new value.
+            ret_val = max86178_write_reg(0, reg, tmp); //E1: Write the new value to the register
+>>>>>>> e9f85f25ebc87b40694c2c8fb08950fa5be1e78a
         }
     }
 
     return ret_val;
 }
 
+<<<<<<< HEAD
 static void *max86178_device_mem(void *dev_ptr)
 {
 	static void *dev_data_ptr;
+=======
+static void *max86178_device_mem(void *dev_ptr) //E1: designed to store and retrieve a pointer to device-specific data for the MAX86178 sensor. 
+{
+	// E1: void *: The return type is a pointer to void, which means it can point to any type.
+	// E1: The parameter is a pointer to void, allowing it to accept any type of pointer.
+
+	static void *dev_data_ptr; // E1: This pointer's value persists across multiple function calls within the same file
+>>>>>>> e9f85f25ebc87b40694c2c8fb08950fa5be1e78a
 
 	if (dev_ptr)
 		dev_data_ptr = dev_ptr;
 	return dev_data_ptr;
 }
 
+<<<<<<< HEAD
 void *max86178_get_device_data(void)
+=======
+void *max86178_get_device_data(void) // E1: Returns a pointer to void which means it can point to any type of data
+>>>>>>> e9f85f25ebc87b40694c2c8fb08950fa5be1e78a
 {
 	return max86178_device_mem(NULL);
 }
 
 static void *max86178_set_device_data(void *dev_ptr)
 {
+<<<<<<< HEAD
 	return max86178_device_mem(dev_ptr);
 }
 
 int max86178_regulator_onoff(struct max86178_dev *sd, char enable)
+=======
+	// E1: static: This means the function is limited to the file scope where it's defined. It cannot be called from other files
+	return max86178_device_mem(dev_ptr);
+}
+
+int max86178_regulator_onoff(struct max86178_dev *sd, char enable) // E1:  control the state of a regulator for the MAX86178 device by setting an internal state variable within the device's structure
+>>>>>>> e9f85f25ebc87b40694c2c8fb08950fa5be1e78a
 {
 	sd->regulator_state = enable;
 	return 0;
@@ -156,6 +223,13 @@ int max86178_exit_test_mode(struct max86178_dev *sd)
 
 int max86178_reset(struct max86178_dev *sd) // OK
 {
+<<<<<<< HEAD
+=======
+	/*E1: Checks and Enables the Regulator: If the regulator is off, it turns it on and logs an error if this fails.
+Issues a Reset Command: Writes a reset command to the MAX86178's system configuration register.
+Clears Temperature Readings: Resets the device's temperature readings to 0.
+Returns Status: Returns the result of the last operation, indicating success or failure.*/
+>>>>>>> e9f85f25ebc87b40694c2c8fb08950fa5be1e78a
 	int ret = 0;
 
 	if (!sd->regulator_state) {
@@ -194,7 +268,11 @@ int max86178_poweron(struct max86178_dev *sd){ // OK
 }
 
 
+<<<<<<< HEAD
 int max86178_poweroff(struct max86178_dev *sd) // OK
+=======
+int max86178_poweroff(struct max86178_dev *sd) // OK	
+>>>>>>> e9f85f25ebc87b40694c2c8fb08950fa5be1e78a
 {
 	int ret = 0;
 	uint8_t buf[1];
@@ -226,7 +304,11 @@ int max86178_init_fifo(struct max86178_dev *sd, uint8_t a_full_val) // OK
 {
 	int ret;
 
+<<<<<<< HEAD
 	ret = max86178_write_reg(sd->comm, MAX86178_FIFO_CFG1_REG,
+=======
+	ret = max86178_write_reg(sd->comm, MAX86178_FIFO_CFG1_REG, //E1: Writes to the FIFO configuration register 1 (MAX86178_FIFO_CFG1_REG). The value written is the bitwise AND of MAX86178_FIFO_A_FULL_MASK and a_full_val. This sets the almost full threshold for the FIFO.
+>>>>>>> e9f85f25ebc87b40694c2c8fb08950fa5be1e78a
 			MAX86178_FIFO_A_FULL_MASK & a_full_val);
 
 	ret |= max86178_write_reg(sd->comm, MAX86178_FIFO_CFG2_REG,
@@ -265,6 +347,10 @@ int max86178_set_sample_rate(struct max86178_dev *sd, uint16_t rate) // OK , be 
 	clk_div = afe_clk / rate;
 
 	/* Set AFE clock division into the MAX86178 register */
+<<<<<<< HEAD
+=======
+	// E1: Writing the cl_div data to PPG_FRM_RATE_REG with Big ENdian method
+>>>>>>> e9f85f25ebc87b40694c2c8fb08950fa5be1e78a
 	ret = max86178_write_reg(sd->comm, MAX86178_PPG_FRM_RATE_LSB_REG, (clk_div & MAX86178_FR_CLK_DIV_L_MASK));
 	if (ret < 0) {
 		pr_err("%s failed. ret: %d\n", __func__, ret);
@@ -326,7 +412,11 @@ int max86178_get_sample_rate(struct max86178_dev *sd) // OK be sure to set inter
 	return sample_rate;
 }
 
+<<<<<<< HEAD
 int max86178_get_meas_num(struct max86178_dev *sd) // OK
+=======
+int max86178_get_meas_num(struct max86178_dev *sd) // OK E1: Get the number of enabled MEAS channels 
+>>>>>>> e9f85f25ebc87b40694c2c8fb08950fa5be1e78a
 {
 	int ret = -1;
 	uint8_t reg, i;
@@ -401,8 +491,13 @@ static inline int max86178_read_fifo_data(struct max86178_dev *sd, uint8_t *fifo
 //static uint8_t counter = 0;
 int max86178_fifo_irq_handler(struct max86178_dev *sd) // OK check for ECG-ACC interaction is required.
 {
+<<<<<<< HEAD
 	uint8_t fifo_buf[MAX86178_MAX_FIFO_DEPTH * MAX86178_DATA_WORD_SIZE];
 	int ret;
+=======
+	uint8_t fifo_buf[MAX86178_MAX_FIFO_DEPTH * MAX86178_DATA_WORD_SIZE]; 
+	int ret;  
+>>>>>>> e9f85f25ebc87b40694c2c8fb08950fa5be1e78a
 	int num_samples;
 	int ppg_discard = 0;
 	fifo_data_t fifo_data;
